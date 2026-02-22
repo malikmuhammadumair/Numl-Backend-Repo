@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    //    for admin Creation
+    //    for admin Creation g
     public UserEntity Addadmin(UserEntity userEntity) {
         userEntity.setPassword(passwordencorder.encode(userEntity.getPassword()));
         userEntity.setRoles(Arrays.asList("ADMIN"));
@@ -74,4 +74,5 @@ public class UserService {
 
 
 }
+
 
