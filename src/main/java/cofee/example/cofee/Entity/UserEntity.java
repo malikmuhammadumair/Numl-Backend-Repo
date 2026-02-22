@@ -29,8 +29,10 @@ public class UserEntity {
     @Column(length = 300)
     private String program;
     @ElementCollection(fetch = FetchType.EAGER)
+       @Column(nullable = false)
     private List<String> roles = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<JournelEntries> papers = new ArrayList<>();
 }
+
