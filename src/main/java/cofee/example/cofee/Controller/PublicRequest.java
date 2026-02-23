@@ -63,4 +63,40 @@ public class PublicRequest {
             return new ResponseEntity<>(lastSix, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }}
+    }
+//    Front page trending corse heart logic
+    @PutMapping("/trending/{id}")
+    public ResponseEntity<JournelEntries> updatetrend(
+            @PathVariable Long id,
+            @RequestParam boolean heart) {
+
+        JournelEntries entry = journelServices.findJournalById(id);
+
+        if (entry == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        entry.setTrending(heart); // "true" ya "false"
+        JournelEntries updated = journelServices.saveJournal(entry);
+
+        return ResponseEntity.ok(updated);
+    }
+// get trending pages
+@GetMapping("/trending")
+public ResponseEntity<List<JournelEntries>> getTrendingPapers() {
+    List<JournelEntries> all = journelServices.getAllTrendingPapers();
+
+    if (all != null && !all.isEmpty()) {
+        // filter trending + latest 6 entries
+        List<JournelEntries> lastSix = all.stream()
+             
+                .sorted((a, b) -> b.getId().compareTo(a.getId())) // latest first
+                .limit(6)
+                .toList();
+
+        return new ResponseEntity<>(lastSix, HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+}
+}
+
