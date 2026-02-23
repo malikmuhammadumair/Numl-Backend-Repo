@@ -128,4 +128,9 @@ public class JournelServices {
     public List<JournelEntries> getRecent6Urls() {
         return coffeeRepository.findAll();
     }
+    //    find trending papers for front page
+public List<JournelEntries> getAllTrendingPapers() {
+    return coffeeRepository.findAllTrending();
 }
+}
+
