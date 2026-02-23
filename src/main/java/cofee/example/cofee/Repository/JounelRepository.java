@@ -28,4 +28,7 @@ AND (:examtype IS NULL OR j.examtype = :examtype)
             @Param("examtype") String examtype
     );
 
+    @Query("SELECT p FROM JournelEntries p WHERE p.trending = true")
+    List<JournelEntries> findAllTrending();
 }
+
